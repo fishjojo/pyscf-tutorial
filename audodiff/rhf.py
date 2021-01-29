@@ -3,13 +3,12 @@ import pyscf
 from pyscf import scf, ao2mo
 from pyscf.scf import hf
 import jax.ops
-from jax import grad, custom_jvp
+from jax import grad
 import jax.numpy as np
 import jax.scipy as scipy
 from jax.scipy.optimize import minimize
 from jax.config import config
 config.update("jax_enable_x64", True)
-from pyscf import grad as pyscf_grad
 
 mol = pyscf.M(
     atom = 'H 0 0 0; H 0 0 1.1',  # in Angstrom
@@ -134,7 +133,6 @@ def run_scf(x0, coords, mf, mo_coeff, mo_occ):
     e = energy_tot(res.x, coords, mf, mo_coeff, mo_occ)
     print("SCF energy: ", e)
 
-
 def scanner(coords, mol):
     coords = numpy.asarray(coords).reshape(-1,3)
     mol.set_geom_(coords, unit='B')
@@ -145,15 +143,6 @@ def scanner(coords, mol):
     e = run_scf(x0, coords, mf, mo_coeff, mo_occ)
     return e
 
-
 scanner(coords0, mol)
 #g = grad(scanner, 0)
 #g(coords0, mol)
-
-
-
-
-
-
-
-
