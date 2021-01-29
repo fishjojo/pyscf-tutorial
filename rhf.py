@@ -146,9 +146,9 @@ def scanner(coords, mol):
     return e
 
 
-#scanner(coords0, mol)
-g = grad(scanner, 0)
-g(coords0, mol)
+scanner(coords0, mol)
+#g = grad(scanner, 0)
+#g(coords0, mol)
 
 
 
